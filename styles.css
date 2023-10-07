@@ -1,0 +1,59 @@
+.title{
+    text-align: center;
+    border-radius: 10px;
+    background-color:rgb(11, 32, 44);
+    border: 2px solid skyblue;
+    transition: all 0.5s ease;
+}
+.title h2{
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+    height: 30px;
+
+}
+.wrapper .sidebar{
+    display: inline-block;
+    background-color: rgb(15, 51, 71);
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 20%;
+    height: 80%;
+    margin: 85px 10px;
+    border-radius: 10px;
+    border: 2px solid rgb(5, 68, 104);
+    padding: 20px 0;
+    transition: all 0.5s ease;
+}
+.grid{
+    display: grid;
+    grid-template-columns: auto auto;
+    justify-content: space-evenly;
+    row-gap: 15px;
+
+}
+.grid .item img{
+    height: 70px;
+    width:150px ;
+    border-radius: 7px;
+}
+.droppable{
+    display: inline-block;
+    background-color: rgb(5, 68, 104);
+    position: fixed;
+    top: 85px;
+    left: 300px;
+    width: 78%;
+    height: 80%;
+    border-radius: 10px;
+    border: 2px solid rgb(5, 68, 104);
+    padding: 20px 0;
+    transition: all 0.5s ease;
+}
+.droppable p{
+    text-align: center;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    /* border-bottom: 2px solid black;    
+    border-bottom-width:; */
+}

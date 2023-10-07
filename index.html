@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+
+<head>
+    <title>Drag & Drop</title>
+    <link rel="stylesheet" href="./styles.css">
+    <script type="text/javasript" src="./drag'n'drop.js"></script>
+
+</head>
+
+<body>
+    <div class="body-container">
+        <div class="title">
+            <h2>Drag & Drop</h2>
+        </div>
+        <div class="wrapper">
+            <div class="sidebar">
+                <div class="grid">
+                    <div class="item">
+                        <img src="./assets/chinese.jpg" alt="" id="item">
+                    </div>
+                </div>
+            </div>
+            <div class="droppable" id="droppable">
+                <p id="para">Drag the images into this container</p>
+            </div>
+        </div>
+    </div>
+    <script>
+        let currentDroppable = null;
+        item = document.getElementById('item');
+        var item_src = item.src;
+        item.onmousedown = function (event) {
+            event.preventDefault();
+            
+            var initialX=event.clientX;
+            var initialY=event.clientY;
+            let shiftX = event.clientX - item.getBoundingClientRect().left;
+            let shiftY = event.clientY - item.getBoundingClientRect().top;
+
+            item.style.position = 'absolute';
+            item.style.zIndex = 1000;
+            document.body.append(item)
+
+            function moveAt(pageX, pageY) {
+                item.style.left = pageX - shiftX + 'px';
+                item.style.top = pageY - shiftY + 'px';
+            }
+            function onMouseMove(event) {
+                moveAt(event.pageX, event.pageY);
+
+                item.hidden = true;
+                let elemBelow = document.elementFromPoint(event.clientX, event.clientY);
+                item.hidden = false;
+
+                if (!elemBelow) return;
+
+                let droppableBelow = elemBelow.closest('.droppable')
+                if (currentDroppable != droppableBelow) {
+                    if (currentDroppable) {
+                        leaveDroppable(droppableBelow)
+                    }
+                    currentDroppable = droppableBelow;
+                    if (currentDroppable) {
+                        enterDroppable(currentDroppable)
+                    }
+                }
+            }
+            document.addEventListener('mousemove', onMouseMove);
+            item.onmouseup = function (event) {
+                var container=document.createElement('div')
+                container.style.padding=event.pageX-shiftX+'px';
+                // container.style.top=event.pageY-shiftY+'px';
+                var img = document.createElement("img");
+                img.id='image-block'
+                img.src = item_src;
+                document.getElementById('droppable').appendChild(container).appendChild(img);
+               
+                document.removeEventListener('mousemove', onMouseMove);
+                item.onmousedown = null;
+            };
+
+        };
+
+        function enterDroppable(elem) {
+            elem.style.background = 'black'
+            elem.style.zIndex = 500
+            elem.style.background = 'black'
+            setTimeout(()=>{
+                elem.style.opacity=0.3,2000
+            })
+            elem.style.opacity=1;
+            
+            // item.style.left=initialX;
+            // item.style.top=initialY;
+        }
+        function leaveDroppable(elem) {
+            elem.style.background = "";
+        }
+        item.ondragstart = function () {
+            return false;
+        };
+    </script>
+
+</body>
+
+</html>
